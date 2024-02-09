@@ -15,6 +15,48 @@ Before running the app, make sure you have the following installed:
 - Flutter SDK
 - Dart SDK
 - API key from OpenWeatherMap (Sign up at [OpenWeatherMap](https://openweathermap.org/) to obtain an API key)
+## Usage
+
+1. **Navigate to the project directory:**
+
+    ```bash
+    cd your-weather-app
+    ```
+
+2. **Create a file named `.env` in the root directory and add your OpenWeatherMap API key:**
+
+    ```makefile
+    OPENWEATHER_API_KEY=your-api-key
+    ```
+
+3. **Run the app:**
+
+    ```bash
+    flutter run
+    ```
+
+### Usage Details
+
+- The app displays current weather information for the default location (Melbourne) on launch.
+- Main screen features include location name, date, time, weather icon, and temperature.
+- Additional weather details include maximum and minimum temperature, wind speed, and humidity.
+
+## Screenshots
+
+![Screenshot 1](screenshots/screenshot1.png)
+![Screenshot 2](screenshots/screenshot2.png)
+
+## Folder Structure
+
+- **lib**: Contains the main source code of the Flutter app.
+  - **Pages**: Contains the pages/screens of the app.
+- **screenshots**: Contains screenshots of the app.
+
+## Dependencies
+
+- [intl](https://pub.dev/packages/intl): For formatting date and time.
+- [weather](https://pub.dev/packages/weather): A Dart library for interacting with the OpenWeatherMap API.
+
 
 ## Installation
 
