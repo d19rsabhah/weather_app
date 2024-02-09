@@ -1,16 +1,24 @@
-# weather_app
+# Weather App
 
-A new Flutter project.
+A Flutter weather app that provides current weather information for a specified location.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- Display current temperature, weather icon, and description.
+- Show location name, date, and time.
+- Provide additional weather information such as maximum and minimum temperature, wind speed, and humidity.
 
-A few resources to get you started if this is your first Flutter project:
+## Prerequisites
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Before running the app, make sure you have the following installed:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Flutter SDK
+- Dart SDK
+- API key from OpenWeatherMap (Sign up at [OpenWeatherMap](https://openweathermap.org/) to obtain an API key)
+
+## Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/your-username/your-weather-app.git
