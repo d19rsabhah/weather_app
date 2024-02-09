@@ -25,9 +25,10 @@ class MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).primaryColorLight,
       ),
-      body: Container(color: Theme.of(context).primaryColor, child: _buildUI()),
+      body: Container(
+          color: Theme.of(context).primaryColorLight, child: _buildUI()),
     );
   }
 
@@ -144,7 +145,7 @@ class MyHomePageState extends State<MyHomePage> {
       width: MediaQuery.sizeOf(context).width * 0.80,
       height: MediaQuery.sizeOf(context).height * 0.15,
       decoration: BoxDecoration(
-          color: Colors.amber, borderRadius: BorderRadius.circular(25)),
+          color: Colors.cyan.shade300, borderRadius: BorderRadius.circular(25)),
       padding: const EdgeInsets.all(8.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
