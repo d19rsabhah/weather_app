@@ -204,7 +204,7 @@ class MyHomePageState extends State<MyHomePage> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
           gradient: LinearGradient(
-            colors: [Color(0xffa18cd1), Color(0xfffbc2eb)],
+            colors: [Color(0xfff5576c), Color(0xfffbc2eb)],
             begin: FractionalOffset(1.0, 0.5),
             end: FractionalOffset(0.0, 1.0),
             // stops: [0.0, 1.0]
@@ -241,14 +241,14 @@ class MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "Wind: ${_weather?.windSpeed?.toStringAsFixed(0)} m/s",
+                "Wind: ${_weather?.windSpeed?.toStringAsFixed(0)}m/s",
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
                 ),
               ),
               Text(
-                "Humidity: ${_weather?.humidity?.toStringAsFixed(0)} %",
+                "Humidity: ${_weather?.humidity?.toStringAsFixed(0)}%",
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
