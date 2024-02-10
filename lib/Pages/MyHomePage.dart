@@ -121,6 +121,7 @@ class MyHomePageState extends State<MyHomePage> {
               borderSide: BorderSide(color: Colors.grey, width: 2)),
           prefixIcon: Icon(Icons.location_city),
         ),
+        keyboardType: TextInputType.text,
       ),
     );
   }
