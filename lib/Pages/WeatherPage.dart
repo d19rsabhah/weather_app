@@ -176,15 +176,13 @@ class _WeatherPageState extends State<WeatherPage> {
       timeOfDay = 'Night';
     }
 
-
-
     // DateTime now = _weather!.date!;
     return Column(
       children: [
         Consumer<ClockProvider>(
           builder: (context, timeModel, child) {
             return Text(
-              '${DateFormat("h:mm a").format(timeModel.currentTime)}',
+              '${DateFormat("h:mm:s a").format(timeModel.currentTime)}',
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
             );
           },
@@ -304,7 +302,8 @@ class _WeatherPageState extends State<WeatherPage> {
                   color: Colors.white,
                   fontSize: 20,
                 ),
-              )
+              ),
+              // Icon(Icons.wind_power)
             ],
           )
         ],
