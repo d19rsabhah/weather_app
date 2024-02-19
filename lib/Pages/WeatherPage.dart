@@ -73,41 +73,43 @@ class _WeatherPageState extends State<WeatherPage> {
         child: CircularProgressIndicator(),
       );
     }
-    return SizedBox(
-      width: MediaQuery.sizeOf(context).width,
-      height: MediaQuery.sizeOf(context).height,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          //  mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.1,
-            ),
-            _searchLocation(),
-            SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.01,
-            ),
-            _locationHeader(),
-            SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.01,
-            ),
-            _dateTimeInfo(),
-            SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.02,
-            ),
-            _weatherIcon(),
-            // SizedBox(
-            //   height: MediaQuery.sizeOf(context).height * 0.02,
-            // ),
-            _currentTemperature(),
-            SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.02,
-            ),
-            _otherInformation(),
-          ],
+    return SingleChildScrollView(
+      child: SizedBox(
+        width: MediaQuery.sizeOf(context).width,
+        height: MediaQuery.sizeOf(context).height,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            //  mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: MediaQuery.sizeOf(context).height * 0.1,
+              ),
+              _searchLocation(),
+              SizedBox(
+                height: MediaQuery.sizeOf(context).height * 0.01,
+              ),
+              _locationHeader(),
+              SizedBox(
+                height: MediaQuery.sizeOf(context).height * 0.01,
+              ),
+              _dateTimeInfo(),
+              SizedBox(
+                height: MediaQuery.sizeOf(context).height * 0.02,
+              ),
+              _weatherIcon(),
+              // SizedBox(
+              //   height: MediaQuery.sizeOf(context).height * 0.02,
+              // ),
+              _currentTemperature(),
+              SizedBox(
+                height: MediaQuery.sizeOf(context).height * 0.02,
+              ),
+              _otherInformation(),
+            ],
+          ),
         ),
       ),
     );
@@ -174,10 +176,7 @@ class _WeatherPageState extends State<WeatherPage> {
       timeOfDay = 'Night';
     }
 
-    if (currentDateTime.hour == 0 && currentDateTime.minute == 0) {
-      // Update the date when it's midnight
-      now = currentDateTime;
-    }
+
 
     // DateTime now = _weather!.date!;
     return Column(
@@ -203,7 +202,7 @@ class _WeatherPageState extends State<WeatherPage> {
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             Text(
-              "  ${DateFormat("d.m.y").format(now)}",
+              "  ${DateFormat("d.MM.y").format(now)}",
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
           ],
