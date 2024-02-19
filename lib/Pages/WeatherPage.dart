@@ -1,55 +1,69 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:weather/weather.dart';
-import 'package:weather_app/consts.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:weather/weather.dart';
+import 'package:weather_app/Provider/clock_provider.dart';
+import 'package:weather_app/consts.dart';
 
-class MyHomePage extends StatefulWidget {
+class WeatherPage extends StatefulWidget {
+  const WeatherPage({super.key});
+
   @override
-  State<MyHomePage> createState() => MyHomePageState();
+  State<WeatherPage> createState() => _WeatherPageState();
 }
 
-class MyHomePageState extends State<MyHomePage> {
+class _WeatherPageState extends State<WeatherPage> {
   var searchText = TextEditingController();
   final WeatherFactory _wf = WeatherFactory(OPENWEATHER_API_KEY);
   Weather? _weather;
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _wf.currentWeatherByCityName("${searchText}").then((value) {
-  //     setState(() {
-  //       _weather = value;
-  //     });
-  //   });
-  // }
+
   @override
   void initState() {
     super.initState();
-    // Initialize with a default city (e.g., "Dummy City")
-    _fetchWeatherData("London");
+    _loadSavedLocation();
   }
 
   void _fetchWeatherData(String city) {
     _wf.currentWeatherByCityName(city).then((value) {
       setState(() {
         _weather = value;
+        _saveLocationToSharedPreferences(city);
       });
     });
   }
 
+  void _loadSavedLocation() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? savedLocation = prefs.getString('savedLocation');
+
+    if (savedLocation == null || savedLocation.isEmpty) {
+      // Set a default city (e.g., "London") if no saved location is found
+      savedLocation = "London";
+    }
+
+    _fetchWeatherData(savedLocation);
+  }
+
+  void _saveLocationToSharedPreferences(String location) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('savedLocation', location);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final clockProvider = Provider.of<ClockProvider>(context);
     return Scaffold(
       body: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-            colors: [Color(0xfffee140), Color(0xffa1c4fd)],
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xffc9688a), Color(0xffa1c4fd)],
             begin: FractionalOffset(0.0, 1.0),
             end: FractionalOffset(1.0, 0.0),
-            // stops: [0.0, 0.3, 0.2]
-          )),
-          //  color: Theme.of(context).primaryColorLight,
-          child: _buildUI()),
+          ),
+        ),
+        child: _buildUI(),
+      ),
     );
   }
 
@@ -63,12 +77,15 @@ class MyHomePageState extends State<MyHomePage> {
       width: MediaQuery.sizeOf(context).width,
       height: MediaQuery.sizeOf(context).height,
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(10.0),
         child: Column(
-          mainAxisSize: MainAxisSize.max,
+          //  mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(
+              height: MediaQuery.sizeOf(context).height * 0.1,
+            ),
             _searchLocation(),
             SizedBox(
               height: MediaQuery.sizeOf(context).height * 0.01,
@@ -82,9 +99,9 @@ class MyHomePageState extends State<MyHomePage> {
               height: MediaQuery.sizeOf(context).height * 0.02,
             ),
             _weatherIcon(),
-            SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.02,
-            ),
+            // SizedBox(
+            //   height: MediaQuery.sizeOf(context).height * 0.02,
+            // ),
             _currentTemperature(),
             SizedBox(
               height: MediaQuery.sizeOf(context).height * 0.02,
@@ -127,7 +144,7 @@ class MyHomePageState extends State<MyHomePage> {
                 borderSide: BorderSide(color: Colors.grey, width: 2)),
             prefixIcon: Icon(Icons.search),
           ),
-          keyboardType: TextInputType.text,
+          // keyboardType: TextInputType.text,
         ),
       ),
     );
@@ -145,13 +162,33 @@ class MyHomePageState extends State<MyHomePage> {
 
   Widget _dateTimeInfo() {
     DateTime now = _weather!.date!;
+    DateTime currentDateTime = DateTime.now();
+    String timeOfDay = '';
+    if (currentDateTime.hour < 12) {
+      timeOfDay = 'Morning';
+    } else if (currentDateTime.hour < 17) {
+      timeOfDay = 'Afternoon';
+    } else if (currentDateTime.hour < 21) {
+      timeOfDay = 'Evening';
+    } else {
+      timeOfDay = 'Night';
+    }
+
+    if (currentDateTime.hour == 0 && currentDateTime.minute == 0) {
+      // Update the date when it's midnight
+      now = currentDateTime;
+    }
+
+    // DateTime now = _weather!.date!;
     return Column(
       children: [
-        Text(
-          DateFormat("h:mm a").format(now),
-          style: const TextStyle(
-            fontSize: 35,
-          ),
+        Consumer<ClockProvider>(
+          builder: (context, timeModel, child) {
+            return Text(
+              '${DateFormat("h:mm a").format(timeModel.currentTime)}',
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+            );
+          },
         ),
         const SizedBox(
           height: 11,
@@ -167,10 +204,14 @@ class MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               "  ${DateFormat("d.m.y").format(now)}",
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
           ],
-        )
+        ),
+        Text(
+          timeOfDay,
+          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+        ),
       ],
     );
   }
@@ -191,7 +232,7 @@ class MyHomePageState extends State<MyHomePage> {
         Text(
           _weather?.weatherDescription ?? "",
           style: const TextStyle(
-              color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+              color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold),
         )
       ],
     );
