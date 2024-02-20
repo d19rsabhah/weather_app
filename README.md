@@ -38,13 +38,13 @@ Before running the app, make sure you have the following installed:
 
 ### Usage Details
 
-- The app displays current weather information for the default location (Melbourne) on launch.
+- The app displays current weather information for the default location (London) on launch.
 - Main screen features include location name, date, time, weather icon, and temperature.
 - Additional weather details include maximum and minimum temperature, wind speed, and humidity.
 
 ## Screenshots
 
-![Screenshot 1](screenshot/screenshot1.png)
+![Screenshot 1](screenshot/screenss.jpg)
 
 ## Folder Structure
 
