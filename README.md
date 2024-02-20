@@ -15,6 +15,7 @@ Before running the app, make sure you have the following installed:
 - Flutter SDK
 - Dart SDK
 - API key from OpenWeatherMap (Sign up at [OpenWeatherMap](https://openweathermap.org/) to obtain an API key)
+
 ## Usage
 
 1. **Navigate to the project directory:**
@@ -45,7 +46,6 @@ Before running the app, make sure you have the following installed:
 
 ![Screenshot 1](screenshot/screenshot1.png)
 
-
 ## Folder Structure
 
 - **lib**: Contains the main source code of the Flutter app.
@@ -56,7 +56,6 @@ Before running the app, make sure you have the following installed:
 
 - [intl](https://pub.dev/packages/intl): For formatting date and time.
 - [weather](https://pub.dev/packages/weather): A Dart library for interacting with the OpenWeatherMap API.
-
 
 ## Installation
 
